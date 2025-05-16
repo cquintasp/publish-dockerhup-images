@@ -1,0 +1,15 @@
+name: Docker Image CI for GHCR
+
+on:
+  push
+
+jobs
+  build_and_publish:
+    runs-on: ubuntu-lastest
+    steps.
+      - uses: actions/checkout@v3
+      - name: Build and push the Image
+        run: |
+         docker login --username cquintas --password ${{secrets.GH_PAT}} ghcr.io
+         docker build . --tag ghcr.io/cquintasp/hello-world-ghcr:latest
+         docker push ghcr.io/cquintasp/hello-world-ghcr:latest
